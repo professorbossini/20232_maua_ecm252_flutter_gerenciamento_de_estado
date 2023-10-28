@@ -1,0 +1,45 @@
+void main(){
+  var senhaValida = "SenhaVal1da!";
+  var senhaSemMaiusculas = 'senhaval1da!';
+  var senhaSemMinusculas = 'SENHAVAL1DA!';
+  var senhaSemNumeros = 'SenhaValida!';
+  var senhaSemCaracteresEspeciais = 'SenhaValida1';
+  
+  var senhas = [
+    senhaValida,
+    senhaSemMaiusculas,
+    senhaSemMinusculas,
+    senhaSemNumeros,
+    senhaSemCaracteresEspeciais
+  ];
+  //maiúsculas
+  RegExp r = RegExp('[A-Z]+');
+  print("Maiúsculas");
+  for (final senha in senhas){
+    print(r.hasMatch(senha));
+  }
+  print("************************");
+  print("Minúsculas");
+  //minúsculas
+  r = RegExp('[a-z]+');
+  for (final senha in senhas){
+    print(r.hasMatch(senha));
+  }
+  print("************************");
+  print("Números");
+  //Números
+//   r = RegExp('[0-9]+');
+  r = RegExp(r'\d+');
+  for (final senha in senhas){
+    print(r.hasMatch(senha));
+  }
+  print("************************");
+  print("Caracteres especiais");
+  //Caracteres especiais
+//   r = RegExp('[0-9]+');
+  r = RegExp(r'[^a-zA-Z0-9]+');
+  for (final senha in senhas){
+    print(r.hasMatch(senha));
+  }
+  print("************************");
+}
