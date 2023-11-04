@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import '../blocs/bloc.dart';
 class LoginTela extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
@@ -26,26 +26,50 @@ class LoginTela extends StatelessWidget{
 
   }
   Widget emailField(){
-    return TextField(
-      keyboardType: TextInputType.emailAddress,
-      decoration: InputDecoration(
-        hintText: 'seu@email.com',
-        labelText: 'Digite seu e-mail'
-      ),
+    return StreamBuilder(
+      stream: bloc.email,
+      builder:(context, AsyncSnapshot<String> snapshot){
+        return TextField(
+          onChanged: (newValue){
+            bloc.changeEmail(newValue);
+          },
+          keyboardType: TextInputType.emailAddress,
+          decoration: InputDecoration(
+            hintText: 'seu@email.com',
+            labelText: 'Digite seu e-mail',
+            errorText: snapshot.hasError ? snapshot.error.toString() : null
+          ),
+        );
+      }  
     );
+    // return TextField(
+    //   keyboardType: TextInputType.emailAddress,
+    //   decoration: InputDecoration(
+    //     hintText: 'seu@email.com',
+    //     labelText: 'Digite seu e-mail'
+    //   ),
+    // );
   }
 
   Widget passwordField(){
-    //devolver um textfield
-    return TextField(
-      obscureText: true,
-      // keyboardType: TextInputType.visiblePassword,
-      // keyboardAppearance: Brightness.dark,
-      decoration: InputDecoration(
-        hintText: 'Senha',
-        labelText: 'Digite sua senha'
-      ),
+    return StreamBuilder(
+      stream: bloc.password,
+      builder: (context, AsyncSnapshot<String> snapshot){
+        return TextField(
+          onChanged: bloc.changePassword,
+          obscureText: true,
+          // keyboardType: TextInputType.visiblePassword,
+          // keyboardAppearance: Brightness.dark,
+          decoration: InputDecoration(
+            hintText: 'Senha',
+            labelText: 'Digite sua senha',
+            errorText: snapshot.error?.toString()
+            // errorText: snapshot.hasError ? '${snapshot.error}' : null
+          ),
+        );
+      },
     );
+    //devolver um textfield
   }
 
   Widget submitButton(){

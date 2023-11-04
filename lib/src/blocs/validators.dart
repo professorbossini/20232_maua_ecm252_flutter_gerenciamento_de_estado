@@ -21,10 +21,17 @@ mixin Validators{
         if(!exp.hasMatch(password)){
           sink.addError('Pelo menos uma maiúscula');
         }
+        else if(password.length < 4){
+          sink.addError('Pelo menos quatro caracteres');
+        }
+        else{
+          sink.add(password);
+        }
       //pelo menos uma minúscula
       //pelo menos um dígito
       //pelo menos um caractere especial
       //pelo menos 8 caracteres
+
     },
   );
 }
