@@ -56,7 +56,7 @@ class LoginTela extends StatelessWidget{
   Widget passwordField(Bloc bloc){
     return StreamBuilder(
       stream: bloc.password,
-      builder: (context, AsyncSnapshot<String> snapshot){
+      builder: (BuildContext context, AsyncSnapshot<String> snapshot){
         return TextField(
           onChanged: bloc.changePassword,
           obscureText: true,
@@ -76,14 +76,13 @@ class LoginTela extends StatelessWidget{
 
   Widget submitButton(Bloc bloc){
     return StreamBuilder(
-      stream: bloc.email, 
-      builder: (context, AsyncSnapshot <String> snapshot){
+      stream: bloc.emailAndPasswordAreOk,
+      builder: (context, AsyncSnapshot <bool> snapshot){
         return ElevatedButton(
-          onPressed: snapshot.hasError ? null : (){}, 
+          onPressed: snapshot.hasData ? () => bloc.submitForm(context) : null, 
           child: Text('Login')
         );
-      }
+      },
     );
   }
-
 }
